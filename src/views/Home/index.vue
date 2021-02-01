@@ -4,11 +4,11 @@
       <van-swipe class="my-swipe"
                  :autoplay="3000"
                  indicator-color="white">
-        <van-swipe-item v-for="img in 4"
-                        :key="img">
+        <van-swipe-item v-for="banner in banners"
+                        :key="banner.bannerId">
           <van-image class="banner"
                      fit="cover"
-                     :src="require('@/assets/banner.png')" />
+                     :src="banner.pic" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -31,6 +31,7 @@
 export default {
   data () {
     return {
+      banners: [],
       tabs: [
         { name: 'notes-o', label: '每日推荐' },
         { name: 'description', label: '歌单' },
@@ -42,8 +43,10 @@ export default {
       ]
     }
   },
-  mounted () {
-
+  async mounted () {
+    const data = await this.$api.get('/api/banner?type=2')
+    console.log('data', data)
+    this.banners = data.banners
   },
   methods: {
 
@@ -63,6 +66,9 @@ export default {
     text-align: center;
     .banner {
       width: 350px;
+      /deep/.van-image__img {
+        border-radius: 8px;
+      }
     }
   }
 

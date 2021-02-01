@@ -19,7 +19,6 @@ export default {
       value: ''
     }
   },
-  mounted () { },
   methods: {}
 }
 </script>

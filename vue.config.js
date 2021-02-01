@@ -20,15 +20,18 @@ module.exports = {
     host: '0.0.0.0',
     port: 8080,
     https: false,
-    hotOnly: false
+    hotOnly: false,
     /* 使用代理 */
-    // proxy: {
-    //   '/api': {
-    //     /* 目标代理服务器地址 */
-    //     target: 'http://47.100.47.3/',
-    //     /* 允许跨域 */
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        /* 目标代理服务器地址 */
+        target: 'https://pengliang.online/cloud-music-api',
+        /* 允许跨域 */
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 }
