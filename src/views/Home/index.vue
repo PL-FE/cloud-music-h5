@@ -10,6 +10,14 @@
                      fit="cover"
                      :src="banner.pic" />
         </van-swipe-item>
+        <van-swipe-item v-if="!banners.length">
+          <van-image class="banner">
+            <template #loading>
+              <van-loading type="spinner"
+                           size="20" />
+            </template>
+          </van-image>
+        </van-swipe-item>
       </van-swipe>
     </div>
 
@@ -22,6 +30,49 @@
         </span>
         <span class="tab-label">{{tab.label}}</span>
       </div>
+    </div>
+
+    <div class="container repeat-item">
+      <div class="title">
+        <div class="left">
+          <span class="h2 bold">推荐歌单</span>
+        </div>
+
+        <div class="right">
+          <van-button round>查看更多</van-button>
+        </div>
+      </div>
+
+      <div class="tabs-container">
+        <div class="img-container-item"
+             v-for="item in personalized"
+             :key="item.id">
+          <div class="img">
+            <van-image width="100"
+                       height="100"
+                       :src="item.picUrl" />
+            <span>{{item.playCount}}</span>
+          </div>
+          <span class="h4">{{item.name}}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container repeat-item">
+      <div class="title">
+        <div class="left">
+          <span class="h2 bold">根据恭喜发财推荐</span>
+        </div>
+
+        <div class="right">
+          <van-button round>播放全部</van-button>
+        </div>
+      </div>
+
+      <div class="tabs-container">
+
+      </div>
 
     </div>
   </div>
@@ -32,6 +83,7 @@ export default {
   data () {
     return {
       banners: [],
+      personalized: [],
       tabs: [
         { name: 'notes-o', label: '每日推荐' },
         { name: 'description', label: '歌单' },
@@ -45,8 +97,10 @@ export default {
   },
   async mounted () {
     const data = await this.$api.get('/api/banner?type=2')
-    console.log('data', data)
     this.banners = data.banners
+
+    const personalizedData = await this.$api.get('/api/personalized')
+    this.personalized = personalizedData.result
   },
   methods: {
 
@@ -59,13 +113,14 @@ export default {
 
 .home-container {
   .container {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .my-swipe .van-swipe-item {
     text-align: center;
     .banner {
       width: 350px;
+      min-height: 136px;
       /deep/.van-image__img {
         border-radius: 8px;
       }
@@ -78,6 +133,7 @@ export default {
     overflow: auto;
     &::-webkit-scrollbar {
       width: 0;
+      height: 0;
     }
     .tabs-item {
       flex-shrink: 0;
@@ -100,6 +156,48 @@ export default {
       .tab-label {
         margin-top: 5px;
         font-size: 12px;
+      }
+    }
+  }
+
+  .repeat-item {
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+      margin-bottom: 10px;
+
+      ::v-deep.van-button {
+        height: auto;
+        padding: 5px 10px;
+      }
+    }
+
+    .img-container-item {
+      width: 100px;
+      margin-left: 15px;
+      & > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+
+      .img {
+        position: relative;
+        ::v-deep img {
+          border-radius: 8px;
+        }
+
+        & > span {
+          position: absolute;
+          top: 2px;
+          right: 8px;
+          color: #fff;
+          font-size: 12px;
+        }
       }
     }
   }
