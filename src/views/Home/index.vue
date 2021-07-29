@@ -2,19 +2,19 @@
   <div class="home-container">
     <div class="container swipe-container">
       <van-swipe class="my-swipe"
-                 :autoplay="3000"
-                 indicator-color="white">
+        :autoplay="3000"
+        indicator-color="white">
         <van-swipe-item v-for="banner in banners"
-                        :key="banner.bannerId">
+          :key="banner.bannerId">
           <van-image class="banner"
-                     fit="cover"
-                     :src="banner.pic" />
+            fit="cover"
+            :src="banner.pic" />
         </van-swipe-item>
         <van-swipe-item v-if="!banners.length">
           <van-image class="banner">
             <template #loading>
               <van-loading type="spinner"
-                           size="20" />
+                size="20" />
             </template>
           </van-image>
         </van-swipe-item>
@@ -23,8 +23,8 @@
 
     <div class="container tabs-container">
       <div class="tabs-item"
-           v-for="tab in tabs"
-           :key="tab.name">
+        v-for="tab in tabs"
+        :key="tab.name">
         <span class="tab-icon">
           <van-icon :name="tab.name" />
         </span>
@@ -33,24 +33,17 @@
     </div>
 
     <div class="container repeat-item">
-      <div class="title">
-        <div class="left">
-          <span class="h2 bold">推荐歌单</span>
-        </div>
-
-        <div class="right">
-          <van-button round>查看更多</van-button>
-        </div>
-      </div>
+      <subTitle leftTitle="推荐歌单"
+        rightTitle="查看更多" />
 
       <div class="tabs-container">
         <div class="img-container-item"
-             v-for="item in personalized"
-             :key="item.id">
+          v-for="item in personalized"
+          :key="item.id">
           <div class="img">
             <van-image width="100"
-                       height="100"
-                       :src="item.picUrl" />
+              height="100"
+              :src="item.picUrl" />
             <span>{{item.playCount}}</span>
           </div>
           <span class="h4">{{item.name}}</span>
@@ -60,18 +53,15 @@
     </div>
 
     <div class="container repeat-item">
-      <div class="title">
-        <div class="left">
-          <span class="h2 bold">根据恭喜发财推荐</span>
-        </div>
-
-        <div class="right">
-          <van-button round>播放全部</van-button>
-        </div>
-      </div>
+      <subTitle leftTitle="根据恭喜发财推荐"
+        rightTitle="播放全部" />
 
       <div class="tabs-container">
-
+        <van-list>
+          <van-cell v-for="item in 5"
+            :key="item"
+            :title="item" />
+        </van-list>
       </div>
 
     </div>
@@ -79,7 +69,11 @@
 </template>
 
 <script>
+import SubTitle from "./SubTitle.vue";
 export default {
+  components: {
+    SubTitle,
+  },
   data () {
     return {
       banners: [],

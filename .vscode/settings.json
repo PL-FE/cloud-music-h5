@@ -3,16 +3,12 @@
   "editor.minimap.enabled": false, //关闭快速预览
   "files.autoSave": "afterDelay", //打开自动保存
   "editor.formatOnSave": true, //每次保存自动格式化
-  // "editor.codeActionsOnSave": {
-  //   // 每次保存的时候将代码按eslint格式进行修复
-  //   "source.fixAll.eslint": true
-  // },
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true, //让函数(名)和后面的括号之间加个空格
   "vetur.format.defaultFormatter.html": "js-beautify-html", //格式化.vue中html
   "vetur.format.defaultFormatter.js": "vscode-typescript", //
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
-      "wrap_attributes": "force-aligned" //属性强制折行对齐
+      "wrap_attributes": "force" //属性强制折行对齐
        // - auto: 仅在超出行长度时才对属性进行换行。
        // - force: 对除第一个属性外的其他每个属性进行换行。
        // - force-aligned: 对除第一个属性外的其他每个属性进行换行，并保持对齐。
@@ -29,7 +25,6 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   
-  "tslint.autoFixOnSave": true,
   "vetur.completion.autoImport": true,
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"

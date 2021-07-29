@@ -3,10 +3,10 @@
     <van-icon name="flower-o" />
 
     <van-search class="search"
-                shape="round"
-                v-model="value"
-                placeholder="花儿乐队"
-                input-align="center" />
+      shape="round"
+      v-model="value"
+      placeholder="花儿乐队"
+      input-align="center" />
 
     <van-icon name="service-o" />
   </div>
@@ -19,7 +19,17 @@ export default {
       value: ''
     }
   },
-  methods: {}
+  watch: {
+    value (v) {
+      this.queryKeyWords(v)
+    }
+  },
+  methods: {
+    async queryKeyWords (v) {
+      const res = await this.$api.get(`/api/search?keywords=${v}`)
+      console.log(`res`, res)
+    }
+  }
 }
 </script>
 

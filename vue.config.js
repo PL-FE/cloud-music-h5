@@ -25,7 +25,7 @@ module.exports = {
     proxy: {
       '/api': {
         /* 目标代理服务器地址 */
-        target: 'https://pengliang.online/cloud-music-api',
+        target: 'https://pl-fe.cn/cloud-music-api',
         /* 允许跨域 */
         changeOrigin: true,
         pathRewrite: {
