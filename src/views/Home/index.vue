@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <!-- 輪播 -->
     <div class="container swipe-container">
       <van-swipe class="my-swipe"
         :autoplay="3000"
@@ -20,18 +21,20 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-
+    <!-- 菜单 -->
     <div class="container tabs-container">
       <div class="tabs-item"
         v-for="tab in tabs"
+        @click="handleClickTab(tab)"
         :key="tab.name">
         <span class="tab-icon">
-          <van-icon :name="tab.name" />
+          <van-icon :name="tab.iconUrl" />
         </span>
-        <span class="tab-label">{{tab.label}}</span>
+        <span class="tab-label">{{tab.name}}</span>
       </div>
     </div>
 
+    <!-- 其他推荐 -->
     <div class="container repeat-item">
       <subTitle leftTitle="推荐歌单"
         rightTitle="查看更多" />
@@ -78,15 +81,7 @@ export default {
     return {
       banners: [],
       personalized: [],
-      tabs: [
-        { name: 'notes-o', label: '每日推荐' },
-        { name: 'description', label: '歌单' },
-        { name: 'bar-chart-o', label: '排行榜' },
-        { name: 'setting-o', label: '直播' },
-        { name: 'search', label: '电台' },
-        { name: 'friends-o', label: '数字专辑' },
-        { name: 'home-o', label: '新碟上架' }
-      ]
+      tabs: []
     }
   },
   async mounted () {
@@ -95,9 +90,25 @@ export default {
 
     const personalizedData = await this.$api.get('/api/personalized')
     this.personalized = personalizedData.result
+    const dragonBall = await this.$api.get('/api/homepage/dragon/ball')
+    this.tabs = dragonBall.data
+    console.log(`dragonBall`, dragonBall)
   },
   methods: {
+    handleClickTab (tab) {
+      switch (tab.id) {
+        case -1:
+          this.openRecommend()
+          break;
 
+        default:
+          break;
+      }
+    },
+
+    openRecommend () {
+      this.$router.push({ name: 'recommend' })
+    }
   }
 }
 </script>
