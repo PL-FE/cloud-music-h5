@@ -27,7 +27,9 @@ export default {
     this.dragonBallList = dragonBallData.data
   },
   methods: {
-    handleClickBall () { }
+    handleClickBall () {
+      this.$router.push({ name: 'recommend' })
+    }
   }
 }
 </script>
