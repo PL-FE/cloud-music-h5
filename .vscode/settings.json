@@ -31,7 +31,6 @@
   },
   "explorer.confirmDelete": false,
   "git.confirmSync": false,
-  "editor.codeActionsOnSave": null,
   "window.zoomLevel": 0,
   "workbench.tree.indent": 4,
   "editor.tabSize": 2,

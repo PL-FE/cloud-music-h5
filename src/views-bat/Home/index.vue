@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import SubTitle from "./SubTitle.vue";
+import SubTitle from "../../views/home-page/common/sub-title.vue";
 export default {
   components: {
     SubTitle,
