@@ -10,6 +10,12 @@ export default {
 }
 </script>
 
+<style lang="less" scoped>
+#app {
+  height: 100vh;
+}
+</style>
+
 <style lang="less" >
 .h4 {
   font-size: 12px;

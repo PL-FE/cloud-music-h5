@@ -1,5 +1,6 @@
 <template>
-  <div class="song-container">
+  <div class="song-container"
+    @click="handlePlay">
     <van-image width="30"
       :src="song.al.picUrl" />
     <span class="h4 song-name">
@@ -19,10 +20,11 @@ export default {
     }
   },
   mounted () {
-
   },
   methods: {
-
+    handlePlay () {
+      this.$router.push({ name: 'song-details', params: this.song })
+    }
   }
 }
 </script>

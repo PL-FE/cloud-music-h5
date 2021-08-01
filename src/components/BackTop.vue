@@ -4,11 +4,13 @@
       @click="goBack">
       <van-icon name="arrow-left" />
     </span>
+    <span class="backTop_title h3">{{title}}</span>
   </div>
 </template>
 
 <script>
 export default {
+  props: { title: String },
   data () {
     return {
 
@@ -27,12 +29,18 @@ export default {
 
 <style lang="less" scoped>
 .backTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  padding: 15px;
   .backTop_back {
     position: absolute;
-    padding: 15px;
-    top: 0;
+    left: 20px;
   }
   z-index: 9;
+
+  text-align: center;
+  vertical-align: middle;
 }
 </style>
