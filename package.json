@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "node ./deploy.js"
   },
   "dependencies": {
     "amfe-flexible": "^2.2.1",
@@ -37,6 +38,7 @@
     "less-loader": "^5.0.0",
     "postcss-pxtorem": "^5.1.1",
     "prettier": "^1.19.1",
+    "sftp-sync-deploy": "^0.7.1",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
