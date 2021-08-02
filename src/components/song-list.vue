@@ -21,22 +21,15 @@
 import Song from '@/components/common/Song.vue'
 
 export default {
+  props: { songs: Object },
   components: { Song },
   data () {
     return {
       dailySongs: []
     }
   },
-  async mounted () {
-    const songsData = await this.$api.get('/api/recommend/songs')
-    const { dailySongs, recommendReasons } = songsData.data
-    dailySongs.forEach(it => {
-      const target = recommendReasons.find(i => i.songId === it.id)
-      if (target) {
-        it.recommendReasons = target.reason
-      }
-    })
-    this.dailySongs = dailySongs
+  mounted () {
+    this.dailySongs = this.songs.dailySongs
   },
   methods: {
     playSongs () {

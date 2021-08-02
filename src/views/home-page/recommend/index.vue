@@ -6,7 +6,8 @@
         <b class="day">{{calcDate.day}}</b><b>/{{calcDate.month}}</b>
       </span>
     </div>
-    <SongList />
+    <SongList v-if="songs"
+      :songs="songs" />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ export default {
   components: { BackTop, SongList },
   data () {
     return {
+      songs: null
     }
   },
   computed: {
@@ -36,7 +38,17 @@ export default {
       }
     }
   },
-  mounted () {
+
+  async mounted () {
+    const songsData = await this.$api.get('/api/recommend/songs')
+    const { dailySongs, recommendReasons } = songsData.data
+    dailySongs.forEach(it => {
+      const target = recommendReasons.find(i => i.songId === it.id)
+      if (target) {
+        it.recommendReasons = target.reason
+      }
+    })
+    this.songs = songsData.data
   },
   methods: {
   }
