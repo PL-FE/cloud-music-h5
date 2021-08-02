@@ -34,6 +34,7 @@ export default {
   justify-content: center;
   position: relative;
   padding: 15px;
+  height: 30px;
   .backTop_back {
     position: absolute;
     left: 20px;

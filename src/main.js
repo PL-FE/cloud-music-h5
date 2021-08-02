@@ -7,6 +7,7 @@ import Axios from './api'
 import 'amfe-flexible'
 import 'vant/lib/index.css'
 import '@/assets/style/common.less'
+import '@/assets/style/enum.less'
 Vue.use(Vant)
 Vue.config.productionTip = false
 Vue.prototype.$api = Axios

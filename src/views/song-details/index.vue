@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import BackTop from '@/components/BackTop.vue'
+import BackTop from '@/components/common/BackTop.vue'
 
 export default {
   components: { BackTop },

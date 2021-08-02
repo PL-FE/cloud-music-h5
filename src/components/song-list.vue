@@ -1,0 +1,75 @@
+<template>
+  <div class="song-list">
+    <div class="play-all">
+      <van-icon @click="playSongs"
+        name="play-circle"
+        class="play-icon" />
+      <span class="h3"> 播放全部 ({{dailySongs.length}})
+      </span>
+    </div>
+    <div class="songs-container">
+      <template v-for="song in dailySongs">
+        <Song class="song-item"
+          :key="song.id"
+          :song="song" />
+      </template>
+    </div>
+  </div>
+</template>
+
+<script>
+import Song from '@/components/common/Song.vue'
+
+export default {
+  components: { Song },
+  data () {
+    return {
+      dailySongs: []
+    }
+  },
+  async mounted () {
+    const songsData = await this.$api.get('/api/recommend/songs')
+    const { dailySongs, recommendReasons } = songsData.data
+    dailySongs.forEach(it => {
+      const target = recommendReasons.find(i => i.songId === it.id)
+      if (target) {
+        it.recommendReasons = target.reason
+      }
+    })
+    this.dailySongs = dailySongs
+  },
+  methods: {
+    playSongs () {
+      this.$router.push({ name: 'song-details', params: this.dailySongs[0] })
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+@red: #ea4d44;
+.song-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.play-all {
+  display: flex;
+  padding: 10px 15px;
+  .play-icon {
+    color: @red;
+    font-size: 20px;
+    padding-right: 8px;
+  }
+}
+.songs-container {
+  flex: 1;
+  overflow: auto;
+  padding: 0 15px;
+  .song-item + .song-item {
+    margin-top: 10px;
+  }
+}
+</style>
