@@ -1,5 +1,6 @@
 <template>
-  <div class="backTop">
+  <div class="backTop"
+    :style="{color: hasBgColor ? '#fff' : '#000'}">
     <span class="backTop_back"
       @click="goBack">
       <van-icon name="arrow-left" />
@@ -10,7 +11,7 @@
 
 <script>
 export default {
-  props: { title: String },
+  props: { title: String, hasBgColor: Boolean },
   data () {
     return {
 

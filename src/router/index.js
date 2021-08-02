@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/views/layout/layout'
 import Recommend from '@/views/home-page/recommend/index.vue'
-import songDetails from '@/views/song-details/index.vue'
+import songDetails from '@/components/song-details/index.vue'
 
 Vue.use(VueRouter)
 
