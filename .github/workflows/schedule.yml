@@ -11,6 +11,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - run: rm -rf package-lock.json
       - name: npm install 安装依赖
         run: npm ci
       - name: npm run all 生成发布
