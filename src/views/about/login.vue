@@ -27,8 +27,8 @@ import { Toast } from 'vant'
 export default {
   data () {
     return {
-      tel: '18593276510',
-      password: 'Wowo624151713'
+      tel: '',
+      password: ''
     }
   },
   mounted () {
