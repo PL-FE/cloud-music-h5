@@ -20,6 +20,12 @@
         <van-image :src="picUrl"
           width="250px"
           max-height="250px" />
+
+        <div class="song-details_phonogram"
+          ref="phonogram-container">
+          <canvas id="casvased"></canvas>
+        </div>
+
       </div>
       <div class="song-details_controls">
         <div class="song-details_controls_top">
@@ -128,6 +134,13 @@ export default {
       const songData = await this.$api.get(`/api/song/url?id=${id}`)
       this.songDetail = songDetails.songs[0]
       this.songUrl = songData.data[0]
+      this.$nextTick(this.initMusic)
+    },
+
+    async initMusic () {
+      const width = this.$refs['phonogram-container'].offsetWidth
+      const height = 400
+      this.$utils.initMusic('casvased', this.songUrl.url, width, height)
     },
 
     download () {
@@ -232,9 +245,23 @@ export default {
   display: flex;
   align-content: space-between;
   .song-details_swipe {
+    position: relative;
+    z-index: 2;
     flex: 1;
     text-align: center;
+    .van-image {
+      z-index: 2;
+    }
   }
+  .song-details_phonogram {
+    #casvased {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+  }
+
   .song-details_controls {
     height: 160px;
     padding: 0 30px;
