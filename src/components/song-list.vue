@@ -8,9 +8,11 @@
       </span>
     </div>
     <div class="songs-container">
-      <template v-for="song in dailySongs">
+      <template v-for="(song, idx) in dailySongs">
         <Song class="song-item"
+          @playSong="playingSong"
           :key="song.id"
+          :songIdx="idx"
           :song="song" />
       </template>
     </div>
@@ -19,7 +21,7 @@
 
 <script>
 import Song from '@/components/common/Song.vue'
-
+import { mapMutations } from 'vuex'
 export default {
   props: { songs: Object },
   components: { Song },
@@ -30,10 +32,15 @@ export default {
   },
   mounted () {
     this.dailySongs = this.songs.dailySongs
+    this.setPlayList(this.songs.dailySongs)
   },
   methods: {
+    ...mapMutations(['setPlayList']),
     playSongs () {
       this.$router.push({ name: 'song-details', params: this.dailySongs[0] })
+    },
+    playingSong () {
+
     }
   }
 }

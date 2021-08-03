@@ -12,9 +12,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   props: {
-    song: Object
+    song: Object,
+    songIdx: Number
   },
   data () {
     return {
@@ -24,8 +26,13 @@ export default {
   mounted () {
   },
   methods: {
+    ...mapMutations(['setPlayingSong']),
     handlePlay () {
       this.$router.push({ name: 'song-details', params: this.song })
+      this.setPlayingSong({
+        playingSong: this.song,
+        playingSongIdx: this.songIdx
+      })
     }
   }
 }

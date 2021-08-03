@@ -41,13 +41,15 @@
           <!-- 播放模式 -->
           <van-icon name="revoke" />
           <!-- 上一首 -->
-          <van-icon name="arrow-left" />
+          <van-icon name="arrow-left"
+            @click="previousSong" />
           <!-- 播放/暂停 -->
           <van-icon :name="paused ? 'play-circle' : 'pause-circle'"
             class="icon-main"
             @click="handlePlay" />
           <!-- 下一首 -->
-          <van-icon name="arrow" />
+          <van-icon name="arrow"
+            @click="nextSong" />
           <!-- 播放列表 -->
           <van-icon name="bars" />
         </div>
@@ -60,7 +62,7 @@
 
 <script>
 import BackTop from '@/components/common/BackTop.vue'
-
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   components: { BackTop },
   data () {
@@ -95,6 +97,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['playingSongIdx', 'playList']),
     song () {
       return this.$route.params
     },
@@ -115,13 +118,17 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['setPlayingSongIdx']),
     async initPlaySong (id) {
+      this.paused = true
+      this.currentTime = 0
       const songDetails = await this.$api.get(`/api/song/detail?ids=${id}`)
       const songData = await this.$api.get(`/api/song/url?id=${id}`)
       this.songDetail = songDetails.songs[0]
       this.songUrl = songData.data[0]
     },
 
+    // 进度条改变
     onSliderChange (v) {
       const songRef = this.$refs.songRef
       const len = songRef.duration
@@ -129,12 +136,38 @@ export default {
       songRef.currentTime = currentTime.toFixed(6)
     },
 
+    // 暂停/播放
     handlePlay () {
       const songRef = this.$refs.songRef
       // 音频是否暂停
       const paused = songRef.paused
       paused ? songRef.play() : songRef.pause()
       this.paused = !paused
+    },
+
+    // 上一首
+    previousSong () {
+      const { playingSongIdx, playList } = this
+      const idx = playingSongIdx === 0 ? playList.length - 1 : playingSongIdx - 1
+      this.toogleSong(idx)
+    },
+    // 下一首
+    nextSong () {
+      const { playingSongIdx, playList } = this
+      const idx = playingSongIdx === playList.length - 1 ? 0 : playingSongIdx + 1
+      this.toogleSong(idx)
+    },
+
+    toogleSong (idx) {
+      const { playList } = this
+      this.setPlayingSongIdx({ playingSongIdx: idx })
+      const song = playList[idx]
+      if (!song) {
+        console.error('找不到歌曲')
+        return
+      }
+      const id = song.id
+      this.initPlaySong(id)
     }
   }
 }
