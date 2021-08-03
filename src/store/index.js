@@ -19,9 +19,6 @@ export default new Vuex.Store({
     playList (state) {
       return state.playList || getItem('playList') || []
     },
-    playingSongId (state) {
-      return state.playingSongId || getItem('playingSongId')
-    },
     playingSongIdx (state) {
       return state.playingSongIdx || getItem('playingSongIdx')
     }

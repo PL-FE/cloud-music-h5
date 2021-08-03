@@ -24,9 +24,11 @@
       <div class="song-details_controls">
         <div class="song-details_controls_top">
           <!-- 喜欢 -->
-          <van-icon name="like-o" />
+          <van-icon name="like-o"
+            @click="like" />
           <!-- 下载 -->
-          <van-icon name="down" />
+          <van-icon name="down"
+            @click="download" />
           <!-- 评论 -->
           <van-icon name="more-o" />
           <!-- 更多 -->
@@ -126,6 +128,18 @@ export default {
       const songData = await this.$api.get(`/api/song/url?id=${id}`)
       this.songDetail = songDetails.songs[0]
       this.songUrl = songData.data[0]
+    },
+
+    download () {
+    },
+
+    // 喜欢歌曲
+    async like () {
+      const { playList, playingSongIdx } = this
+      const song = playList[playingSongIdx]
+      if (!song) return
+      const id = song.id
+      await this.$api.post(`/api/like?id=${id}`, { like: true })
     },
 
     // 进度条改变
