@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   getters: {
     profile (state) {
-      return state.profile || getItem('profile') || {}
+      return state.profile || getItem('profile')
     },
     playList (state) {
       return state.playList || getItem('playList') || []

@@ -1,8 +1,6 @@
-import axios from "axios"
+import axios from 'axios'
 
-let instance = axios.create({
-})
-
+const instance = axios.create({})
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
@@ -15,7 +13,6 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
-
   return response.data
 }, function (error) {
   return Promise.reject(error)
