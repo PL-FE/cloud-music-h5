@@ -134,7 +134,7 @@ export default {
       const songData = await this.$api.get(`/api/song/url?id=${id}`)
       this.songDetail = songDetails.songs[0]
       this.songUrl = songData.data[0]
-      this.$nextTick(this.initMusic)
+      // this.$nextTick(this.initMusic)
     },
 
     async initMusic () {
