@@ -43,6 +43,7 @@ export default {
 @secColor: #fae2e1;
 
 .song-container {
+  height: 30px;
   display: flex;
   align-items: center;
   .song-name {

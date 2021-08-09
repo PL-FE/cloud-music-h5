@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import api from '@/api'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,6 +13,9 @@ export default new Vuex.Store({
     playList: null
   },
   getters: {
+    account (state) {
+      return state.account || getItem('account')
+    },
     profile (state) {
       return state.profile || getItem('profile')
     },
@@ -47,7 +50,12 @@ export default new Vuex.Store({
       setItem('token', token)
     }
   },
-  actions: {},
+  actions: {
+    getLikeList (state) {
+      const uid = state.getters.account.id
+      return api.get(`api/likelist?uid=${uid}`)
+    }
+  },
   modules: {}
 })
 

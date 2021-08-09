@@ -30,7 +30,8 @@
       <div class="song-details_controls">
         <div class="song-details_controls_top">
           <!-- 喜欢 -->
-          <van-icon name="like-o"
+          <van-icon name="like"
+            :class="{islike: islike}"
             @click="like" />
           <!-- 下载 -->
           <van-icon name="down"
@@ -70,7 +71,7 @@
 
 <script>
 import BackTop from '@/components/common/BackTop.vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   components: { BackTop },
   data () {
@@ -78,7 +79,8 @@ export default {
       songUrl: null,
       songDetail: null,
       currentTime: 0,
-      paused: true
+      paused: true,
+      islike: false
     }
   },
   watch: {
@@ -127,6 +129,7 @@ export default {
 
   methods: {
     ...mapMutations(['setPlayingSongIdx']),
+    ...mapActions(['getLikeList']),
     async initPlaySong (id) {
       this.paused = true
       this.currentTime = 0
@@ -134,6 +137,7 @@ export default {
       const songData = await this.$api.get(`/api/song/url?id=${id}`)
       this.songDetail = songDetails.songs[0]
       this.songUrl = songData.data[0]
+      this.getLike(id)
       // this.$nextTick(this.initMusic)
     },
 
@@ -141,6 +145,11 @@ export default {
       const width = this.$refs['phonogram-container'].offsetWidth
       const height = 400
       this.$utils.initMusic('casvased', this.songUrl.url, width, height)
+    },
+
+    async getLike (id) {
+      const likeList = await this.getLikeList()
+      this.islike = likeList.ids.find(it => it === +id)
     },
 
     download () {
@@ -152,7 +161,9 @@ export default {
       const song = playList[playingSongIdx]
       if (!song) return
       const id = song.id
-      await this.$api.post(`/api/like?id=${id}`, { like: true })
+      await this.$api.post(`/api/like?id=${id}`)
+      this.islike = true
+      this.getLike(id)
     },
 
     // 进度条改变
@@ -271,6 +282,9 @@ export default {
     }
     .song-details_controls_handIcon,
     .song-details_controls_top {
+      .islike {
+        color: red;
+      }
       display: flex;
       justify-content: space-around;
       align-items: center;
