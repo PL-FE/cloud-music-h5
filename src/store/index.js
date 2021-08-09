@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/api'
+import persistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [persistedState()],
   state: {
     token: '',
     account: null,
@@ -14,40 +17,33 @@ export default new Vuex.Store({
   },
   getters: {
     account (state) {
-      return state.account || getItem('account')
+      return state.account
     },
     profile (state) {
-      return state.profile || getItem('profile')
+      return state.profile
     },
     playList (state) {
-      return state.playList || getItem('playList') || []
+      return state.playList
     },
     playingSongIdx (state) {
-      return state.playingSongIdx || getItem('playingSongIdx')
+      return state.playingSongIdx
     }
   },
   mutations: {
     setPlayingSong (state, { playingSong, playingSongIdx }) {
       state.playingSong = playingSong
       state.playingSongIdx = playingSongIdx
-      setItem('playingSongIdx', playingSongIdx)
-      setItem('playingSong', playingSong)
     },
     setPlayingSongIdx (state, { playingSongIdx }) {
       state.playingSongIdx = playingSongIdx
-      setItem('playingSongIdx', playingSongIdx)
     },
     setPlayList (state, playList) {
       state.playList = playList
-      setItem('playList', playList)
     },
     setLoginData (state, { token, account, profile }) {
       state.token = token
       state.account = account
       state.profile = profile
-      setItem('profile', profile)
-      setItem('account', account)
-      setItem('token', token)
     }
   },
   actions: {
@@ -58,11 +54,3 @@ export default new Vuex.Store({
   },
   modules: {}
 })
-
-function setItem (key, data) {
-  localStorage.setItem(key, JSON.stringify(data))
-}
-
-function getItem (key) {
-  return JSON.parse(localStorage.getItem(key))
-}
