@@ -47,9 +47,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // 有延迟
     getLikeList (state) {
       const uid = state.getters.account.id
-      return api.get(`api/likelist?uid=${uid}`)
+      return api.post(`api/likelist?uid=${uid}`)
     }
   },
   modules: {}

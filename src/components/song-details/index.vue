@@ -161,7 +161,7 @@ export default {
       const song = playList[playingSongIdx]
       if (!song) return
       const id = song.id
-      await this.$api.post(`/api/like?id=${id}`)
+      await this.$api.post(`/api/like?id=${id}&like=${!this.islike}`)
       this.islike = true
       this.getLike(id)
     },
