@@ -23,7 +23,7 @@
 import Song from '@/components/common/Song.vue'
 import { mapMutations } from 'vuex'
 export default {
-  props: { songs: Object },
+  props: { songs: [Object, Array] },
   components: { Song },
   data () {
     return {
@@ -31,8 +31,8 @@ export default {
     }
   },
   mounted () {
-    this.dailySongs = this.songs.dailySongs
-    this.setPlayList(this.songs.dailySongs)
+    this.dailySongs = this.songs.dailySongs || this.songs
+    this.setPlayList(this.dailySongs)
   },
   methods: {
     ...mapMutations(['setPlayList']),

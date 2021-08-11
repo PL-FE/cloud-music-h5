@@ -5,7 +5,8 @@
 
     <div class="personalized-list">
       <template v-for="item in personalized">
-        <Playlists :key="item.id"
+        <songSheetItem :key="item.id"
+          @click.native="handlePlayList(item)"
           :listsInfo="item" />
       </template>
     </div>
@@ -14,9 +15,9 @@
 
 <script>
 import SubTitle from '@/views/home-page/common/sub-title.vue'
-import Playlists from '@/components/Playlists.vue'
+import songSheetItem from '@/components/song-sheet-item.vue'
 export default {
-  components: { SubTitle, Playlists },
+  components: { SubTitle, songSheetItem },
   data () {
     return {
       personalized: []
@@ -27,7 +28,9 @@ export default {
     this.personalized = personalizedData.result
   },
   methods: {
-
+    handlePlayList (item) {
+      this.$router.push({ name: 'recommend', query: { id: item.id } })
+    }
   }
 }
 </script>
