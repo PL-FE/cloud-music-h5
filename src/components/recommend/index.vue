@@ -96,7 +96,7 @@ export default {
 
 .position {
   position: absolute;
-  top: 0;
+  top: 10px;
 }
 .recommend-bg {
   position: relative;
