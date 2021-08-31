@@ -46,6 +46,10 @@ export default {
 .playlists-container {
   width: 100px;
   margin-left: 15px;
+
+  &:last-child {
+    margin-right: 15px;
+  }
   & > span {
     overflow: hidden;
     text-overflow: ellipsis;

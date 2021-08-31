@@ -118,7 +118,7 @@ export default {
     },
     picUrl () {
       const { songDetail } = this
-      if (!songDetail) return ''
+      if (!songDetail) return require('@/assets/disc_default.png')
       return songDetail.al.picUrl
     }
   },
@@ -149,7 +149,7 @@ export default {
 
     async getLike (id) {
       const likeList = await this.getLikeList()
-      this.islike = likeList.ids.find(it => it === +id)
+      this.islike = !!likeList.ids.find(it => it === +id)
     },
 
     download () {
@@ -161,8 +161,7 @@ export default {
       const song = playList[playingSongIdx]
       if (!song) return
       const id = song.id
-      await this.$api.post(`/api/like?id=${id}&like=${!this.islike}`)
-      this.islike = true
+      await this.$api.post(`/api/like?id=${id}&like=${!this.islike}&time=${+new Date()}`)
       this.getLike(id)
     },
 
@@ -290,7 +289,7 @@ export default {
       align-items: center;
 
       .icon-main {
-        font-size: 40px;
+        font-size: 60px;
       }
     }
   }
