@@ -24,7 +24,7 @@ export default {
   },
   async mounted () {
     const dragonBallData = await this.$api.get('/api/homepage/dragon/ball')
-    this.dragonBallList = dragonBallData.data
+    this.dragonBallList = dragonBallData.data.slice(0, 1)
   },
   methods: {
     handleClickBall () {

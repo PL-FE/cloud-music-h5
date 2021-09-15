@@ -44,6 +44,7 @@ export default {
         if (data.code === 200) {
           const { token, account, profile } = data
           this.setLoginData({ token, account, profile })
+          this.$router.push({ path: '/' })
         } else {
           Toast.fail(data.message)
         }
